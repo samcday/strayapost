@@ -1,0 +1,68 @@
+name: spec-only
+version: 1
+description: Publish accepted specifications without tracking runtime implementation.
+
+artifacts:
+  - id: proposal
+    generates: proposal.md
+    description: Purpose, scope, and affected capabilities.
+    template: proposal.md
+    instruction: |
+      Explain why the contract needs to change and what is out of scope.
+      List new and modified capabilities using their exact paths under specs/.
+      Read the existing capability inventory and relevant main specs first.
+      Describe compatibility and affected consumers.
+      This change publishes requirements, not a completed implementation.
+    requires: []
+
+  - id: specs
+    generates: specs/**/*.md
+    description: Testable changes to the accepted behavior contract.
+    template: spec.md
+    instruction: |
+      Write one delta spec per capability named in the proposal.
+      Read each affected main spec in full before changing it.
+      Preserve capability paths and unrelated requirements and scenarios.
+
+      Use ADDED, MODIFIED, REMOVED, or RENAMED Requirements sections.
+      A MODIFIED requirement includes its complete updated text and scenarios.
+      REMOVED requirements include a Reason and Migration.
+      RENAMED entries identify the old and new requirement names.
+      For a new capability, include a Purpose section of at least 50 characters.
+      Do not replace an existing capability's Purpose through a delta.
+
+      Use ### Requirement: headings and MUST or SHALL for requirements.
+      Keep each new requirement description within 500 characters.
+      Every requirement needs at least one #### Scenario: with WHEN and THEN.
+      Scenarios must establish observable outcomes, including relevant failures.
+      Specify behavior and constraints, not internal implementation steps.
+      Record evidence limits rather than inventing facts or silently broadening scope.
+    requires:
+      - proposal
+
+  - id: design
+    generates: design.md
+    description: Rationale, evidence, and trade-offs behind the contract.
+    template: design.md
+    instruction: |
+      Explain consequential decisions, alternatives, evidence, and remaining risks.
+      Keep this document concise for small changes.
+      Distinguish verified facts from assumptions and possible implementation choices.
+      Requirements belong in the specs; design notes do not silently add obligations.
+      Resolve questions that affect the contract before declaring it ready.
+      Do not create tasks.md or an implementation-completion checklist.
+      Existing implementation notes can remain as explicitly uncompleted reference.
+    requires:
+      - proposal
+      - specs
+
+apply:
+  requires:
+    - proposal
+    - specs
+    - design
+  instruction: |
+    This workflow accepts specifications, not an implementation.
+    Review and validate the artifacts; do not implement runtime features or
+    mark implementation work complete.
+    Use /land when the user authorizes promotion of the deltas and publication.

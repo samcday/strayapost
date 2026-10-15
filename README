@@ -1,1 +1,39 @@
-strayapost
+# strayapost
+
+An unofficial Australia Post tracking contract for a Rust library and CLI.
+
+This project ships specifications. It does not yet provide a working tracking tool.
+The library contract targets `no_std + alloc`, with a native CLI for terminal or JSON output.
+Tracking uses direct requests without a personal account or CAPTCHA solver.
+
+## Working with the specs
+
+The accepted contract lives in `openspec/specs/`.
+Proposed additions, changes, and removals live in `openspec/changes/`.
+In Delta, use `/openspec-explore` to discuss a change and `/openspec-propose` to draft it.
+The `spec-only` schema produces a proposal, delta specs, and design notes.
+It does not create implementation tasks.
+
+Use `/land` to review a change, fold its deltas into the accepted specs, and archive its rationale.
+Landing publishes a contract, not a claim that its implementation passes tests.
+Implementation notes in an archive are reference material, not completed work.
+
+## Quality checks
+
+With Node.js 22 or newer, run:
+
+```sh
+npm ci --ignore-scripts
+npm run check
+```
+
+The same checks run on pushes and pull requests through GitHub Actions.
+They lint Markdown and strictly validate the OpenSpec schema, changes, and main specs.
+Human review must still check meaning, compatibility, and evidence.
+Use `npx --no-install openspec` for other OpenSpec commands with the locked version.
+
+The locked tooling currently has upstream parser dependency advisories.
+CI uses read-only permissions and a ten-minute timeout to limit exposure.
+The quality check is not a security audit or a runtime test.
+
+This project is not affiliated with Australia Post.

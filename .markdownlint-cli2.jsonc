@@ -1,0 +1,16 @@
+{
+  "globs": [
+    "README",
+    "openspec/**/*.md",
+    ".agents/skills/land/SKILL.md"
+  ],
+  "config": {
+    "MD013": false,
+    "MD024": {
+      "siblings_only": true
+    },
+    // OpenSpec scenarios allow lists directly after their headings.
+    "MD022": false,
+    "MD032": false
+  }
+}

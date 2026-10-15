@@ -1,0 +1,16 @@
+{
+  "name": "strayapost-specs",
+  "private": true,
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "check": "npm run lint && npm run validate",
+    "lint": "markdownlint-cli2",
+    "validate": "openspec schema validate spec-only && openspec validate --all --strict --no-interactive"
+  },
+  "devDependencies": {
+    "@fission-ai/openspec": "1.14.2",
+    "markdownlint-cli2": "0.23.3"
+  }
+}
